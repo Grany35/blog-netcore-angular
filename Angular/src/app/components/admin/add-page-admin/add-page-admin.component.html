@@ -1,0 +1,85 @@
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Blog Ekleme Alanı</h4>
+        <form [formGroup]="blogAddForm" class="forms-sample">
+          <div class="form-group">
+            <label for="exampleInputUsername1">Başlık</label>
+            <input type="text" class="form-control" formControlName="title"  id="exampleInputUsername1" placeholder="Başlık Giriniz">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Başlık Fotoğraf URL</label>
+            <input type="text" class="form-control" formControlName="titlePhoto"  id="exampleInputEmail1" placeholder="URL Giriniz">
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select class="form-control" formControlName="categoryId" >
+              <option value="" selected hidden>Kategori Seçiniz</option>
+              <option *ngFor="let category of categories" [value]="category.id" >{{category.categoryName}}</option>
+            </select>
+           </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Açıklama</label>
+            <input type="text" formControlName="mainDescription" class="form-control" id="exampleInputPassword1" placeholder="Açıklama Giriniz">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputConfirmPassword1">İçerik</label>
+            <div  class="NgxEditor__Wrapper">
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+                <ngx-editor   name="editor"  formControlName="contentOfPost"
+                  [editor]="editor"
+                  [ngModel]="html"
+                  [disabled]="false"
+                  [placeholder]="'İçerik Giriniz'"
+                ></ngx-editor>
+              </div>
+          </div>
+          <button (click)="addBlog()" type="submit" class="btn btn-primary me-2">Blog Ekle</button>
+          <button class="btn btn-light" (click)="cancelBlog()">Temizle</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Kategori Ekleme Alanı</h4>
+        <form [formGroup]="categoryAddForm" class="forms-sample">
+          <div class="form-group">
+            <label for="exampleInputUsername1">Kategori Adı</label>
+            <input type="text" class="form-control" formControlName="categoryName"  id="exampleInputUsername1" placeholder="Kategori Adı Giriniz">
+          </div>
+          <button (click)="addCategory()" type="submit" class="btn btn-primary me-2">Kategori Ekle</button>
+          <button class="btn btn-light" (click)="cancelCategory()">Temizle</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Kategori Listesi</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Kategori Adı</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of categories">
+                <td>{{category.categoryName}}</td>
+                <td><button (click)="deleteCategory(category.id)" class="btn btn-outline-danger btn-xs"><i class="mdi mdi-delete"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
